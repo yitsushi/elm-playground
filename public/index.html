@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <style>body { padding: 0; margin: 0; }</style>
+	<script type="text/javascript" src="/application.js"></script>
+</head>
+
+<body>
+
+<pre id="elm"></pre>
+
+<script>
+const tokenKey = "__myToken"
+
+const app = Elm.Main.init({
+    node: document.getElementById('elm'),
+    flags: {
+      storedToken: localStorage.getItem("__myToken"),
+      tmp: "tmp"
+    }
+});
+
+app.ports.sendTokenToStorage.subscribe(token => {
+  localStorage.setItem("__myToken", token)
+});
+</script>
+
+</body>
+</html>
