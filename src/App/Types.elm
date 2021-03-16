@@ -1,47 +1,58 @@
 module App.Types exposing
-  ( Flags
+    ( Flags
     , Model
-    , Msg ( .. )
-    , Route ( .. )
-    , SignIn ( .. )
+    , Msg(..)
+    , Route(..)
+    , SignIn(..)
     , routeToString
-  )
+    )
 
 import Browser
 import Browser.Navigation exposing (Key)
-import Url
 import Http
-
 import Lib.OAuth
+import Url
+
 
 type SignIn
-  = SignInMain
-  | SignInCallback (Maybe String)
+    = SignInMain
+    | SignInCallback (Maybe String)
+
 
 type Route
-  = SignInPage SignIn
-  | MainPage
-  | NotFound
+    = SignInPage SignIn
+    | MainPage
+    | NotFound
 
-type alias Model = 
-  { navigationKey: Key
-  , page: Route }
+
+type alias Model =
+    { navigationKey : Key
+    , page : Route
+    }
+
 
 type alias Flags =
-  { storedToken : Maybe String
-  , tmp : String
-  }
+    { storedToken : Maybe String
+    , tmp : String
+    }
 
-type Msg =
-    NoOp
-  | NavigareTo String
-  | UrlChanged Url.Url
-  | UrlRequest Browser.UrlRequest
-  | AccessTokenLanded (Result Http.Error Lib.OAuth.AccessToken)
+
+type Msg
+    = NoOp
+    | NavigareTo String
+    | UrlChanged Url.Url
+    | UrlRequest Browser.UrlRequest
+    | AccessTokenLanded (Result Http.Error Lib.OAuth.AccessToken)
+
 
 routeToString : Route -> String
 routeToString route =
-  case route of
-    MainPage -> "Main"
-    SignInPage _ -> "SignIn"
-    NotFound -> "NotFound"
+    case route of
+        MainPage ->
+            "Main"
+
+        SignInPage _ ->
+            "SignIn"
+
+        NotFound ->
+            "NotFound"

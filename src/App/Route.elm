@@ -1,28 +1,33 @@
 module App.Route exposing
-  ( routeParser
-  , parsedUrl
-  , onUrlRequest
-  , onUrlChange
-  )
+    ( onUrlChange
+    , onUrlRequest
+    , parsedUrl
+    , routeParser
+    )
 
+import App.Types exposing (Msg(..), Route(..))
 import Browser exposing (UrlRequest)
-import Url exposing (Url)
-import Url.Parser as Parser exposing ( (</>), top )
-
-import App.Types exposing (Msg(..), Route( .. ))
-
 import Page.Main.Route
 import Page.SignIn.Route
+import Url exposing (Url)
+import Url.Parser as Parser exposing ((</>), top)
+
 
 routeParser : Parser.Parser (Route -> a) a
 routeParser =
-  [Page.SignIn.Route.route] ++ Page.Main.Route.route |> Parser.oneOf
+    [ Page.SignIn.Route.route ] ++ Page.Main.Route.route |> Parser.oneOf
+
 
 parsedUrl : Url -> Route
-parsedUrl url = Maybe.withDefault NotFound (Parser.parse routeParser url)
+parsedUrl url =
+    Maybe.withDefault NotFound (Parser.parse routeParser url)
+
 
 onUrlRequest : UrlRequest -> Msg
-onUrlRequest = UrlRequest 
+onUrlRequest =
+    UrlRequest
+
 
 onUrlChange : Url -> Msg
-onUrlChange = UrlChanged
+onUrlChange =
+    UrlChanged
