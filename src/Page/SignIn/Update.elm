@@ -1,19 +1,21 @@
 module Page.SignIn.Update exposing (..)
 
-import App.Types exposing (Model, Msg(..), Token ( .. ))
+import App.Types exposing (Model, Msg(..))
 import Browser.Navigation as Navigation
 
 import App.Ports exposing (sendTokenToStorage)
+import Lib.OAuth exposing (Token (..))
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   let
     token = case model.page of
-      App.Types.SignInPage tok -> Just (Token tok)
-      _ -> model.token
+      App.Types.SignInPage (App.Types.SignInCallback (Just (tok))) -> Just (Code tok)
+      _ -> Nothing
 
     commands = case token of 
-      Just (Token tok) -> sendTokenToStorage tok
-      Nothing -> Cmd.none
+      Just (Code tok) -> Lib.OAuth.requestAccessToken AccessTokenLanded tok
+      _ -> Cmd.none
+
   in
-    ( { model | token = token }, commands )
+    ( model, commands )

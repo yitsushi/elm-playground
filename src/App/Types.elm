@@ -1,27 +1,30 @@
 module App.Types exposing
   ( Flags
     , Model
-    , Token ( .. )
     , Msg ( .. )
     , Route ( .. )
+    , SignIn ( .. )
     , routeToString
-    , maybeTokenToString
   )
 
 import Browser
 import Browser.Navigation exposing (Key)
 import Url
+import Http
 
-type Token = Token String
+import Lib.OAuth
+
+type SignIn
+  = SignInMain
+  | SignInCallback (Maybe String)
 
 type Route
-  = SignInPage String
+  = SignInPage SignIn
   | MainPage
   | NotFound
 
 type alias Model = 
-  { token: Maybe Token
-  , navigationKey: Key
+  { navigationKey: Key
   , page: Route }
 
 type alias Flags =
@@ -34,6 +37,7 @@ type Msg =
   | NavigareTo String
   | UrlChanged Url.Url
   | UrlRequest Browser.UrlRequest
+  | AccessTokenLanded (Result Http.Error Lib.OAuth.AccessToken)
 
 routeToString : Route -> String
 routeToString route =
@@ -41,9 +45,3 @@ routeToString route =
     MainPage -> "Main"
     SignInPage _ -> "SignIn"
     NotFound -> "NotFound"
-
-maybeTokenToString : Maybe Token -> String
-maybeTokenToString token =
-  case token of
-    Just (Token s) -> s
-    Nothing -> "Undefined"

@@ -16,7 +16,7 @@ import Page.SignIn.Route
 
 routeParser : Parser.Parser (Route -> a) a
 routeParser =
-  Page.SignIn.Route.route ++ Page.Main.Route.route |> Parser.oneOf
+  [Page.SignIn.Route.route] ++ Page.Main.Route.route |> Parser.oneOf
 
 parsedUrl : Url -> Route
 parsedUrl url = Maybe.withDefault NotFound (Parser.parse routeParser url)
