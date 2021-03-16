@@ -1,6 +1,5 @@
 module App.Route exposing
-  ( Route(..)
-  , routeParser
+  ( routeParser
   , parsedUrl
   , onUrlRequest
   , onUrlChange
@@ -8,24 +7,22 @@ module App.Route exposing
 
 import Browser exposing (UrlRequest)
 import Url exposing (Url)
-import Url.Parser as Parser exposing ( (</>) )
+import Url.Parser as Parser exposing ( (</>), top )
 
-import App.Types exposing (Msg(..))
+import App.Types exposing (Msg(..), Route( .. ))
 
-type Route
-  = Signin String
-  | NotFound
+import Page.Main.Route
+import Page.SignIn.Route
 
 routeParser : Parser.Parser (Route -> a) a
-routeParser = Parser.oneOf
-  [ Parser.map Signin (Parser.s "signin" </> Parser.string)
-  ]
+routeParser =
+  Page.SignIn.Route.route ++ Page.Main.Route.route |> Parser.oneOf
 
 parsedUrl : Url -> Route
 parsedUrl url = Maybe.withDefault NotFound (Parser.parse routeParser url)
 
 onUrlRequest : UrlRequest -> Msg
-onUrlRequest _ = NoOp
+onUrlRequest = UrlRequest 
 
 onUrlChange : Url -> Msg
-onUrlChange _ = NoOp
+onUrlChange = UrlChanged
