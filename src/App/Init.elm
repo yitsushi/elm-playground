@@ -13,4 +13,5 @@ init _ url key =
     App.Update.update NoOp
         { navigationKey = key
         , page = App.Route.parsedUrl url
+        , adventOfCodeOutput = ( Nothing, Nothing )
         }

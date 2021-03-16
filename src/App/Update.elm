@@ -4,6 +4,7 @@ import App.Route
 import App.Types exposing (Model, Msg(..), Route(..))
 import Browser
 import Browser.Navigation as Navigation
+import Page.AoC.Update
 import Page.Main.Update
 import Page.SignIn.Update
 import Url
@@ -36,3 +37,6 @@ update msg model =
 
                 NotFound ->
                     ( model, Cmd.none )
+
+                AdventOfCode2020 target ->
+                    Page.AoC.Update.update msg model target

@@ -21,6 +21,7 @@ type SignIn
 
 type Route
     = SignInPage SignIn
+    | AdventOfCode2020 String
     | MainPage
     | NotFound
 
@@ -28,6 +29,7 @@ type Route
 type alias Model =
     { navigationKey : Key
     , page : Route
+    , adventOfCodeOutput : ( Maybe String, Maybe String )
     }
 
 
@@ -43,6 +45,7 @@ type Msg
     | UrlChanged Url.Url
     | UrlRequest Browser.UrlRequest
     | AccessTokenLanded (Result Http.Error Lib.OAuth.AccessToken)
+    | AdventOfCodeInputLanded (Result Http.Error String)
 
 
 routeToString : Route -> String
@@ -56,3 +59,6 @@ routeToString route =
 
         NotFound ->
             "NotFound"
+
+        AdventOfCode2020 _ ->
+            "Advent of Code 2020"

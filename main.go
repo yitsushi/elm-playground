@@ -1,10 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"path"
+	"strings"
 )
 
 func sendFileOrError(w http.ResponseWriter, path string) {
@@ -12,6 +15,7 @@ func sendFileOrError(w http.ResponseWriter, path string) {
 
 	content, err := os.ReadFile(path)
 	if err != nil {
+		w.WriteHeader(http.StatusNotFound)
 		_, _ = io.WriteString(w, err.Error())
 
 		return
@@ -26,6 +30,12 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		if strings.HasPrefix(req.URL.Path, "/input") {
+			sendFileOrError(w, fmt.Sprintf("public/input/day%s", path.Base(req.URL.Path)))
+
+			return
+		}
+
 		sendFileOrError(w, "public/index.html")
 	})
 

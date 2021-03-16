@@ -1,4 +1,4 @@
-module App.Main exposing (main)
+port module App.Main exposing (main)
 
 import App.Init exposing (init)
 import App.Route exposing (onUrlChange, onUrlRequest)
@@ -18,3 +18,6 @@ main =
         , onUrlChange = onUrlChange
         , onUrlRequest = onUrlRequest
         }
+
+
+port sendTokenToStorage : String -> Cmd msg

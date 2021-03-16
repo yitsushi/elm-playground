@@ -7,6 +7,7 @@ module App.Route exposing
 
 import App.Types exposing (Msg(..), Route(..))
 import Browser exposing (UrlRequest)
+import Page.AoC.Route
 import Page.Main.Route
 import Page.SignIn.Route
 import Url exposing (Url)
@@ -15,7 +16,7 @@ import Url.Parser as Parser
 
 routeParser : Parser.Parser (Route -> a) a
 routeParser =
-    Page.SignIn.Route.route :: Page.Main.Route.route |> Parser.oneOf
+    Page.AoC.Route.route :: Page.SignIn.Route.route :: Page.Main.Route.route |> Parser.oneOf
 
 
 parsedUrl : Url -> Route
