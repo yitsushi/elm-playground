@@ -8,7 +8,7 @@ module Lib.OAuth exposing
     )
 
 import Configuration.OAuth
-import Http exposing (get)
+import Http
 import Json.Decode exposing (Decoder)
 
 

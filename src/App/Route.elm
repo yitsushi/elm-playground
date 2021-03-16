@@ -10,12 +10,12 @@ import Browser exposing (UrlRequest)
 import Page.Main.Route
 import Page.SignIn.Route
 import Url exposing (Url)
-import Url.Parser as Parser exposing ((</>), top)
+import Url.Parser as Parser
 
 
 routeParser : Parser.Parser (Route -> a) a
 routeParser =
-    [ Page.SignIn.Route.route ] ++ Page.Main.Route.route |> Parser.oneOf
+    Page.SignIn.Route.route :: Page.Main.Route.route |> Parser.oneOf
 
 
 parsedUrl : Url -> Route

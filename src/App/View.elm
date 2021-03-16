@@ -3,7 +3,6 @@ module App.View exposing (view)
 import App.Types exposing (..)
 import Browser exposing (Document)
 import Html
-import Html.Events exposing (onClick)
 import Page.Main.View
 import Page.SignIn.View
 

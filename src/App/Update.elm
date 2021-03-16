@@ -31,7 +31,7 @@ update msg model =
                 MainPage ->
                     Page.Main.Update.update msg model
 
-                SignInPage token ->
+                SignInPage _ ->
                     Page.SignIn.Update.update msg model
 
                 NotFound ->

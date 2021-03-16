@@ -1,11 +1,9 @@
 module Page.SignIn.View exposing (view)
 
 import App.Types exposing (..)
-import Browser exposing (Document)
 import Html
 import Html.Attributes
-import Html.Events exposing (onClick)
-import Lib.OAuth exposing (maybeTokenToString)
+import Lib.OAuth
 
 
 view : Model -> List (Html.Html Msg)

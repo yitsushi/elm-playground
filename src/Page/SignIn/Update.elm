@@ -1,13 +1,11 @@
 module Page.SignIn.Update exposing (..)
 
-import App.Ports exposing (sendTokenToStorage)
 import App.Types exposing (Model, Msg(..))
-import Browser.Navigation as Navigation
 import Lib.OAuth exposing (Token(..))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update _ model =
     let
         token =
             case model.page of
