@@ -6,7 +6,6 @@ import Json.Decode exposing (Decoder)
 
 type alias Gitea =
     { clientID : String
-    , applicationName : String
     , redirectURI : String
     , authServer : String
     , authorizePath : String
