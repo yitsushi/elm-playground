@@ -1,15 +1,16 @@
-module Page.SignIn.Route exposing (route)
+module Page.SignIn.Route exposing (..)
 
-import App.Types exposing (Route(..), SignIn(..))
-import Url.Parser as Parser exposing ((</>), (<?>))
+import Url.Parser as Parser exposing (top, (</>), (<?>))
 import Url.Parser.Query as Query
 
 
+type Route
+    = Root
+    | Callback (Maybe String)
+
 route : Parser.Parser (Route -> a) a
 route =
-    Parser.map SignInPage <|
-        Parser.s "signin"
-            </> Parser.oneOf
-                    [ Parser.map SignInMain Parser.top
-                    , Parser.map SignInCallback (Parser.s "callback" <?> Query.string "code")
-                    ]
+    Parser.s "signin" </> Parser.oneOf
+    [ Parser.map Callback (Parser.s "callback" <?> Query.string "code")
+    , Parser.map Root top
+    ]

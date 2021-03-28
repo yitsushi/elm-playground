@@ -23,9 +23,16 @@ const tokenKey = "__myToken"
 
 const app = Elm.Main.init({
     node: document.getElementById('elm'),
-    flags: {
-      storedToken: localStorage.getItem("__myToken"),
-      tmp: "tmp"
+    flags:
+    { storedToken: localStorage.getItem("__myToken")
+    , gitea:
+      { clientID: "5eeec0c2-eb26-4cf4-8101-67c76c69cf50"
+      , applicationName: "elm-playground"
+      , redirectURI: "http://localhost:8000/signin/callback"
+      , authServer: "https://gitea.code-infection.com"
+      , authorizePath: "/login/oauth/authorize"
+      , accessTokenPath: "/login/oauth/access_token"
+      }
     }
 });
 

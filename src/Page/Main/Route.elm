@@ -1,9 +1,12 @@
-module Page.Main.Route exposing (route)
+module Page.Main.Route exposing (..)
 
-import App.Types exposing (Route(..))
 import Url.Parser as Parser exposing (top)
 
 
-route : List (Parser.Parser (Route -> a) a)
+type Route
+    = Root
+
+
+route : Parser.Parser (Route -> a) a
 route =
-    [ Parser.map MainPage top ]
+    Parser.map Root top

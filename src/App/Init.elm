@@ -1,17 +1,12 @@
 module App.Init exposing (..)
 
-import App.Route
-import App.Types exposing (..)
-import App.Update
+import App.Flags exposing (Flags)
+import App.Message exposing (Message)
+import App.Model exposing (Model, initialModel)
 import Browser.Navigation exposing (Key)
-import Lib.OAuth exposing (Token(..))
 import Url exposing (Url)
 
 
-init : Flags -> Url -> Key -> ( Model, Cmd Msg )
-init _ url key =
-    App.Update.update NoOp
-        { navigationKey = key
-        , page = App.Route.parsedUrl url
-        , adventOfCodeOutput = ( Nothing, Nothing )
-        }
+init : Flags -> Url -> Key -> ( Model, Cmd Message )
+init flags url key =
+    ( initialModel flags key url, Cmd.none )

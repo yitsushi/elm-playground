@@ -1,12 +1,14 @@
-module Page.AoC.Route exposing (route)
+module Page.AoC.Route exposing (..)
 
-import App.Types exposing (Route(..))
-import Url.Parser as Parser exposing ((</>), top)
+import Url.Parser as Parser exposing (top, (</>))
 
+type Route
+    = Root
+    | Solution Int
 
 route : Parser.Parser (Route -> a) a
 route =
     Parser.s "aoc" </> Parser.oneOf
-    [ Parser.map AdventOfCode2020 Parser.string
-    , Parser.map (AdventOfCode2020 "-") Parser.top
+    [ Parser.map Solution (top </> Parser.int)
+    , Parser.map Root top
     ]

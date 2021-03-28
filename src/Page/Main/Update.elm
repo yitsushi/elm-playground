@@ -1,8 +1,9 @@
 module Page.Main.Update exposing (..)
 
-import App.Types exposing (Model, Msg(..))
+import App.Message as Base
+import Page.Main.Model exposing (Model)
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Base.Message -> Model -> ( Model, Cmd Base.Message )
 update _ model =
     ( model, Cmd.none )
